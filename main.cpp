@@ -20,6 +20,7 @@ int health;
 int money;
 int food;
 int extra;
+int move;
 char died;
 int difficult;
 
@@ -90,16 +91,17 @@ void animations() {
 		;
 }
 void Health() {
-	 health = 100;
+	health = 100;
 	int move = 0;
 	char died = 0;
-#define die if (health <= 0) {anim1re; Sleep(3000); died = 1;}
-#define dying if (move >= 1) {health = health - (10*move); move = 0;} die; if(died == 1) {cout << "Рыбка поняла , что тут ей делать нечего.\n Она решила свалить зарубеж."; Sleep(5000); return 0;}
+#define die if (health <= 0) {system("cls"); anim1re; Sleep(3000); died = 1;}
+#define dying if (move >= 1) {health = health - (10*move); move = 0;} die; if(died == 1) {cout << "Рыбку не устроило качество жизни.\nРыбка поняла, что тут ей делать нечего.\nРыбка решила свалить зарубеж."; Sleep(5000); return 0;}
 
 }
 void Money() {
 	int money = 0;
 	int difficult = 0; //0 - easy, 1 - middle, 2 - hard, 3 - ultrahard
+	int move = 0;
 #define randoming switch (difficult) {case 0: {minimum = 1; maximum = 50;} case 1: {minimum = 1; maximum = 5000;} case 2: { minimum = 1;  maximum = 50000; } case 3: { minimum = 1;  maximum = 500000;} default: { minimum = 1;  maximum = 50; difficult = 0; break;}} one = minimum + rand() % (maximum - minimum + 1); two = minimum + rand() % (maximum - minimum + 1); three = one + two; answer = 0;
 #define gaining randoming cout << "Реши пример! " << one << " + " << two << " = ?\n"; cin >> answer; if (three == answer) {money = money + (10*difficult+15); cout << "Правильно! Держи свои щекели!\n Заработано: " << (10*difficult+10) << "$\nТеперь денег всего: " << money << "$ " << endl;} else {system("cls"); cout << "Ты лоханулся\n Твой остаток: " << money << "$" << endl; move = move + 1;} move = move + 1;
 }
@@ -108,7 +110,7 @@ void Feeding() {
 	extra = 0;
 #define amountfood cout<<"Осталось еды: "<< food << endl; //Количество еды
 #define feed if (food > 0) {food = food - 1; health= health + 5; extra++; system("cls"); cout << "Рыбка покормлена.\n";} else {system("cls"); cout << "У тебя еды нет, сходи затарься\n";}
-//Эволюция
+	//Эволюция
 #define evo if (extra >= 25) {cout << "Ваша рыбка эволюционировала и поняла, что вы ей больше не нужны\n"; Sleep(7000); anim1re; return 0;}
 }
 void Market() {
@@ -119,58 +121,66 @@ int main() {
 	loadspeed = 100;
 	speedanim = 300;
 	cout << "Loading"; Sleep(loadspeed); cout << "."; Sleep(loadspeed); cout << "."; Sleep(loadspeed); cout << ".\n"; Sleep(loadspeed);
-animations;
-Health;
-Money;
-Feeding;
-load;
-//system("color 14");
-system("color 02");
-setlocale(0, "");
-	//health = 60;
-	//money = 20;
-int move = 0;
-    //food = 0;
-    //extra = 0; //Evolution
-char died = 0;
+	animations;
+	Health;
+	Money;
+	Feeding;
+
+
+	//system("color 14");
+	system("color 02");
+	setlocale(0, "");
+
+	//Базовые значения
+	health = 60;
+	money = 20;
+	int move = 0;
+	food = 0;
+	extra = 0; //Evolution
+	died = 0;
+	difficult = 1; //сложность
 
 	//Delete below?
 	int three = 0;
 
+	load;
+
 	cout << "Игра с рыбкой. Ваша задача: не дать рыбке умереть!\n\n";
 	//cout << health << " " << food << " " << money << " " << extra;
-for (;;) {
-	cout << "1. Заработать денег.             " << "В кармане: " << money << "$\n";
-	cout << "2. Покормить рыбку.              " << "В холодильнике: " << food << "\n";
-	cout << "3. Купить еду.                   " << "Здоровье рыбки: " << health << "%\n";
-	cout << "99. Выход из игры." << "\n";
-	int choice;
-	cin >> choice;
-	switch (choice) {
-	case 1: {
-		gaining
-		dying
-		cout << "Здоровье рыбки: " << health << "%" << endl;
-		break;
-	}
-	case 2: {
-		feed
-			evo
-			amountfood;
-		break;
-	}
-	case 3: {
+	for (;;) {
+		cout << "1. Заработать денег.             " << "В кармане:      " << money << "$\n";
+		cout << "2. Покормить рыбку.              " << "В холодильнике: " << food << "\n";
+		cout << "3. Купить еду.                   " << "Здоровье рыбки: " << health << "%\n";
+		cout << "\n99. Выход из игры." << "\n";
+		int choice;
+		cin >> choice;
+		switch (choice) {
+		case 1: {
+			cin >> difficult;
+			cout << difficult << endl << minimum << endl << maximum << endl; // delete this
+			gaining
+				dying
+				cout << "Здоровье рыбки: " << health << "%" << endl;
+			break;
+		}
+		case 2: {
+			feed
+				evo
+				amountfood;
+			break;
+		}
+		case 3: {
 #define notmoney cout<<"Ты бомж, сходи заработай денег!\n";
-		system("cls");
-		cout << "В кармане: " << money << "$" << endl << "В холодильнике : " << food << endl << "Здоровье рыбки: " << health << "%\n" << endl;
-		market
-	int buy = 0;
-	cin >> buy;
-		switch (buy) {
-			case 1: {if (money >= 20) { money = money - 20; food++; amountfood} else { notmoney } break; }
-			case 2: {if (money >= 20) { money = money - 30; food = food + 2; amountfood} else { notmoney } break; }
-			case 3: {if (money >= 20) { money = money - 50; food = food + 5; amountfood} else { notmoney } break; }
-			case 4: {if (money >= 20) { money = money - 100; food = food + 10; amountfood} else { notmoney } break; }
+			system("cls");
+			cout << "В кармане: " << money << "$" << endl << "В холодильнике : " << food << endl << "Здоровье рыбки: " << health << "%\n" << endl;
+			market
+				int buy = 0;
+			cin >> buy;
+			switch (buy) {
+			case 1: {if (money >= 20) { money = money - 20; food++; amountfood } else { notmoney } break; }
+			case 2: {if (money >= 20) { money = money - 30; food = food + 2; amountfood } else { notmoney } break; }
+			case 3: {if (money >= 20) { money = money - 50; food = food + 5; amountfood } else { notmoney } break; }
+			case 4: {if (money >= 20) { money = money - 100; food = food + 10; amountfood } else { notmoney } break; }
 			case 42: {break; }
 			default: {
 				cout << "Вводи номер еды, епта\n";
@@ -178,22 +188,21 @@ for (;;) {
 				break;
 			}
 			}
-		break;
-	}
-	case 42: {
-		health = health - 100;
-		die;
-		cout << "Пока ты смотрел на рыбку, она сбежала от тебя\n"; Sleep(7000); cout << "Ты лох"; Sleep(1000); cout << "."; Sleep(1000); cout << "."; Sleep(1000); cout << "."; Sleep(5000);
-		system("pause");
-	}
-	case 99: { save; return 0; }
-	default: {
-		cout << "Кажется мы потеряли взаимопонимание...\n"; Sleep(5000);
-		return 0;
-		break;
-	}
+			break;
+		}
+		case 42: {
+			health = health - 100;
+			die;
+			cout << "Пока ты смотрел на рыбку, она сбежала от тебя\n"; Sleep(7000); cout << "Ты лох"; Sleep(1000); cout << "."; Sleep(1000); cout << "."; Sleep(1000); cout << ".\n"; Sleep(5000);
+			system("pause");
+
+		}
+		case 99: { save; return 0; }
+		default: {
+			cout << "Кажется мы потеряли взаимопонимание...\n"; Sleep(5000);
+			return 0;
+			break;
+		}
+		}
 	}
 }
-}
-
-
