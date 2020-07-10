@@ -90,9 +90,10 @@ void Health() {
 
 }
 void Money() {
-	money = 0;
-#define randoming int one = rand(); int two = rand(); int three = one + two; int answer = 0;
-#define gaining randoming cout << "Реши пример! " << one << " + " << two << " = ?\n"; cin >> answer; if (three == answer) {money = money + 30; cout << "Правильно Держи свои щекели!\n Заработано: " << 30 << "$\nТеперь денег всего: " << money << "$ " << endl;} else {system("cls"); cout << "�� ���������\n ���� �������: " << money << "$" << endl; move = move + 1;} move = move + 1;
+	int money = 0;
+	int difficult = 0; //0 - easy, 1 - middle, 2 - hard, 3 - ultrahard
+#define randoming switch (difficult) {case 0: {minimum = 1; maximum = 50;} case 1: {minimum = 1; maximum = 5000;} case 2: { minimum = 1;  maximum = 50000; } case 3: { minimum = 1;  maximum = 500000;} default: { minimum = 1;  maximum = 50; difficult = 0; break;}} one = minimum + rand() % (maximum - minimum + 1); two = minimum + rand() % (maximum - minimum + 1); three = one + two; answer = 0;
+#define gaining randoming cout << "Реши пример! " << one << " + " << two << " = ?\n"; cin >> answer; if (three == answer) {money = money + (10*difficult+10); cout << "Правильно! Держи свои щекели!\n Заработано: " << (10*difficult+10) << "$\nТеперь денег всего: " << money << "$ " << endl;} else {system("cls"); cout << "Ты лоханулся\n Твой остаток: " << money << "$" << endl; move = move + 1;} move = move + 1;
 }
 void Feeding() {
 	food = 0;
