@@ -2,16 +2,26 @@
 #include<windows.h>
 #include<string>
 #include<fstream>
+#include<math.h>
 using namespace std;
 //Технические переменные
 int loadspeed;
 int speedanim;
+
+int one = 0;
+int two = 0;
+int minimum = 0;
+int maximum = 50;
+int answer = 0;
+
+
 //Игровые  переменные
 int health;
 int money;
 int food;
 int extra;
-int died;
+char died;
+int difficult;
 
 
 void data() {
@@ -20,8 +30,6 @@ void data() {
 #define load ifstream in("data.txt"); in >> health >> food >> money >> extra; in.close();
 
 }
-
-
 void animations() {
 	//Скорость анимации рыбки
 	int speedanim = 300
@@ -93,7 +101,7 @@ void Money() {
 	int money = 0;
 	int difficult = 0; //0 - easy, 1 - middle, 2 - hard, 3 - ultrahard
 #define randoming switch (difficult) {case 0: {minimum = 1; maximum = 50;} case 1: {minimum = 1; maximum = 5000;} case 2: { minimum = 1;  maximum = 50000; } case 3: { minimum = 1;  maximum = 500000;} default: { minimum = 1;  maximum = 50; difficult = 0; break;}} one = minimum + rand() % (maximum - minimum + 1); two = minimum + rand() % (maximum - minimum + 1); three = one + two; answer = 0;
-#define gaining randoming cout << "Реши пример! " << one << " + " << two << " = ?\n"; cin >> answer; if (three == answer) {money = money + (10*difficult+10); cout << "Правильно! Держи свои щекели!\n Заработано: " << (10*difficult+10) << "$\nТеперь денег всего: " << money << "$ " << endl;} else {system("cls"); cout << "Ты лоханулся\n Твой остаток: " << money << "$" << endl; move = move + 1;} move = move + 1;
+#define gaining randoming cout << "Реши пример! " << one << " + " << two << " = ?\n"; cin >> answer; if (three == answer) {money = money + (10*difficult+15); cout << "Правильно! Держи свои щекели!\n Заработано: " << (10*difficult+10) << "$\nТеперь денег всего: " << money << "$ " << endl;} else {system("cls"); cout << "Ты лоханулся\n Твой остаток: " << money << "$" << endl; move = move + 1;} move = move + 1;
 }
 void Feeding() {
 	food = 0;
@@ -108,7 +116,7 @@ void Market() {
 }
 
 int main() {
-	loadspeed = 0;
+	loadspeed = 100;
 	speedanim = 300;
 	cout << "Loading"; Sleep(loadspeed); cout << "."; Sleep(loadspeed); cout << "."; Sleep(loadspeed); cout << ".\n"; Sleep(loadspeed);
 animations;
@@ -119,12 +127,15 @@ load;
 //system("color 14");
 system("color 02");
 setlocale(0, "");
- //health = 60;
- //money = 20;
+	//health = 60;
+	//money = 20;
 int move = 0;
-//food = 0;
-//extra = 0; //��������
- died = 0;
+    //food = 0;
+    //extra = 0; //Evolution
+char died = 0;
+
+	//Delete below?
+	int three = 0;
 
 	cout << "Игра с рыбкой. Ваша задача: не дать рыбке умереть!\n\n";
 	//cout << health << " " << food << " " << money << " " << extra;
