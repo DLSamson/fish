@@ -4,7 +4,7 @@
 #include<fstream>
 #include<math.h>
 using namespace std;
-//РўРµС…РЅРёС‡РµСЃРєРёРµ РїРµСЂРµРјРµРЅРЅС‹Рµ
+//Технические переменные
 int loadspeed;
 int speedanim;
 
@@ -15,7 +15,7 @@ int maximum = 50;
 int answer = 0;
 
 
-//РРіСЂРѕРІС‹Рµ  РїРµСЂРµРјРµРЅРЅС‹Рµ
+//Игровые  переменные
 int health;
 int money;
 int food;
@@ -29,12 +29,13 @@ void data() {
 
 #define save ofstream out("data.txt"); out << health << "\n" << food << "\n" << money << "\n" << extra; out.close();
 #define load ifstream in("data.txt"); in >> health >> food >> money >> extra; in.close();
+#define cleardata ofstream out("data.txt"); out << "60 \n 0 \n 20 \n 0"; out.close();
 
 }
 void animations() {
-	//РЎРєРѕСЂРѕСЃС‚СЊ Р°РЅРёРјР°С†РёРё СЂС‹Р±РєРё
+	//Скорость анимации рыбки
 	int speedanim = 300
-		//*	//РљР°РґСЂ РїР»Р°РІР°РЅРёСЏ(РІР»РµРІРѕ)
+		//*	//Кадр плавания(влево)
 #define frame0l cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~_,,,_~ ~\n"; cout << "~ ~ ~ ~ ~<0)(8888><(~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
 #define frame1l cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ _,,,_ ~ ~\n"; cout << "~ ~ ~ ~ <0)(8888><( ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
 #define frame2l cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~_,,,_~ ~ ~\n"; cout << "~ ~ ~ ~<0)(8888><(~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
@@ -44,10 +45,10 @@ void animations() {
 #define frame6l cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~_,,,_~ ~ ~ ~ ~\n"; cout << "~ ~<0)(8888><(~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
 #define frame7l cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ _,,,_ ~ ~ ~ ~ ~\n"; cout << "~ <0)(8888><( ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
 #define frame8l cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~_,,,_~ ~ ~ ~ ~ ~\n"; cout << "~<0)(8888><(~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
-	//РџР»С‹РІРµС‚(Р»РµРІРѕ)
+	//Плывет(лево)
 #define anim1l frame0l; Sleep(speedanim); system("cls"); frame1l; Sleep(speedanim); system("cls"); frame2l; Sleep(speedanim); system("cls"); frame3l; Sleep(speedanim); system("cls"); frame4l; Sleep(speedanim); system("cls");  frame5l; Sleep(speedanim); system("cls"); frame6l; Sleep(speedanim); system("cls"); frame7l; Sleep(speedanim); system("cls"); frame8l; Sleep(speedanim); system("cls");
 
-//*	//РљР°РґСЂ РїР»Р°РІР°РЅРёСЏ(РїСЂР°РІРѕ)
+//*	//Кадр плавания(право)
 #define frame0r cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~_,,,_~ ~ ~ ~ ~ ~ ~\n"; cout << ")><8888)(0> ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
 #define frame1r cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ _,,,_ ~ ~ ~ ~ ~ ~\n"; cout << "~)><8888)(0>~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
 #define frame2r cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~_,,,_~ ~ ~ ~ ~ ~\n"; cout << "~ )><8888)(0> ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
@@ -57,10 +58,10 @@ void animations() {
 #define frame6r cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~_,,,_~ ~ ~ ~\n"; cout << "~ ~ ~ )><8888)(0> ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
 #define frame7r cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ _,,,_ ~ ~ ~\n"; cout << "~ ~ ~ ~)><8888)(0>~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
 #define frame8r cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~_,,,_~ ~ ~\n"; cout << "~ ~ ~ ~ )><8888)(0> ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
-	//РџР»С‹РІРµС‚(РїСЂР°РІРѕ)
+	//Плывет(право)
 #define anim1r frame0r; Sleep(speedanim); system("cls"); frame1r; Sleep(speedanim); system("cls"); frame2r; Sleep(speedanim); system("cls"); frame3r; Sleep(speedanim); system("cls"); frame4r; Sleep(speedanim); system("cls");  frame5r; Sleep(speedanim); system("cls"); frame6r; Sleep(speedanim); system("cls"); frame7r; Sleep(speedanim); system("cls"); frame8r; Sleep(speedanim); system("cls");
 
-//* //РљР°РґСЂС‹ РїР»Р°РІР°РЅРёСЏ(РїСЂР°РІРѕ)(Р­РєСЃС‚СЂР°)
+//* //Кадры плавания(право)(Экстра)
 #define frame0re cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~_,,,_~ ~ ~ ~ ~ ~ ~\n"; cout << ")><8888)(0> ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
 #define frame1re cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ _,,,_ ~ ~ ~ ~ ~ ~\n"; cout << "~)><8888)(0>~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
 #define frame2re cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~_,,,_~ ~ ~ ~ ~ ~\n"; cout << "~ )><8888)(0> ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
@@ -76,17 +77,17 @@ void animations() {
 #define frame12re cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ _,,,_ ~\n"; cout << "~ ~ ~ ~ ~ ~ )><8888)(\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
 #define frame13re cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~_,,,_~\n"; cout << "~ ~ ~ ~ ~ ~ ~)><8888)\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
 #define frame14re cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ _,,,_\n"; cout << "~ ~ ~ ~ ~ ~ ~()><8888\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
-#define frame15re cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~_,,,\n"; cout << "~ ~ ~ ~ ~ ~ ~(Рў)><888\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
-#define frame16re cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ _,,\n"; cout << "~ ~ ~ ~ ~ ~ ~(РўС‹)><88\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
-#define frame17re cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~_,\n"; cout << "~ ~ ~ ~ ~ ~ ~(РўС‹ )><8\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
-#define frame18re cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ _\n"; cout << "~ ~ ~ ~ ~ ~ ~(РўС‹ Р»)><\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
-#define frame19re cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~(РўС‹ Р»Рѕ)>\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
-#define frame20re cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~(РўС‹ Р»РѕС…)\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
-#define frame21re cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~(РўС‹ Р»РѕС…)\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
-#define frame22re cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~(РўС‹ Р»РѕС…)\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
-#define frame23re cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~(РўС‹ Р»РѕС…)\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
+#define frame15re cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~_,,,\n"; cout << "~ ~ ~ ~ ~ ~ ~(Т)><888\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
+#define frame16re cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ _,,\n"; cout << "~ ~ ~ ~ ~ ~ ~(Ты)><88\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
+#define frame17re cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~_,\n"; cout << "~ ~ ~ ~ ~ ~ ~(Ты )><8\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
+#define frame18re cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ _\n"; cout << "~ ~ ~ ~ ~ ~ ~(Ты л)><\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
+#define frame19re cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~(Ты ло)>\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
+#define frame20re cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~(Ты лох)\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
+#define frame21re cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~(Ты лох)\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
+#define frame22re cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~(Ты лох)\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
+#define frame23re cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~(Ты лох)\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"; cout << "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n";
 
-	//РџР»С‹РІРµС‚ (РїСЂР°РІРѕ)(Р­РєСЃС‚СЂР°)
+	//Плывет (право)(Экстра)
 #define anim1re frame0re; Sleep(speedanim); system("cls"); frame1re; Sleep(speedanim); system("cls"); frame2re; Sleep(speedanim); system("cls"); frame3re; Sleep(speedanim); system("cls"); frame4re; Sleep(speedanim); system("cls");  frame5re; Sleep(speedanim); system("cls"); frame6re; Sleep(speedanim); system("cls"); frame7re; Sleep(speedanim); system("cls"); frame8re; Sleep(speedanim); system("cls"); frame9re; Sleep(speedanim); system("cls"); frame10re; Sleep(speedanim); system("cls"); frame11re; Sleep(speedanim); system("cls"); frame12re; Sleep(speedanim); system("cls"); frame13re; Sleep(speedanim); system("cls"); frame14re; Sleep(speedanim); system("cls"); frame15re; Sleep(speedanim); system("cls"); frame16re; Sleep(speedanim); system("cls"); frame17re; Sleep(speedanim); system("cls"); frame18re; Sleep(speedanim); system("cls"); frame19re; Sleep(speedanim); system("cls"); frame20re; Sleep(speedanim); system("cls"); frame21re; Sleep(speedanim); system("cls"); frame22re; Sleep(speedanim); system("cls"); frame23re; Sleep(speedanim); system("cls");
 		;
 }
@@ -95,7 +96,7 @@ void Health() {
 	int move = 0;
 	char died = 0;
 #define die if (health <= 0) {system("cls"); anim1re; Sleep(3000); died = 1;}
-#define dying if (move >= 1) {health = health - (10*move); move = 0;} die; if(died == 1) {cout << "Р С‹Р±РєСѓ РЅРµ СѓСЃС‚СЂРѕРёР»Рѕ РєР°С‡РµСЃС‚РІРѕ Р¶РёР·РЅРё.\nР С‹Р±РєР° РїРѕРЅСЏР»Р°, С‡С‚Рѕ С‚СѓС‚ РµР№ РґРµР»Р°С‚СЊ РЅРµС‡РµРіРѕ.\nР С‹Р±РєР° СЂРµС€РёР»Р° СЃРІР°Р»РёС‚СЊ Р·Р°СЂСѓР±РµР¶."; Sleep(5000); return 0;}
+#define dying if (move >= 1) {health = health - (10*move); move = 0;} die; if(died == 1) {cout << "Рыбку не устроило качество жизни.\nРыбка поняла, что тут ей делать нечего.\nРыбка решила свалить зарубеж."; Sleep(5000); return 0;}
 
 }
 void Money() {
@@ -103,18 +104,18 @@ void Money() {
 	int difficult = 0; //0 - easy, 1 - middle, 2 - hard, 3 - ultrahard
 	int move = 0;
 #define randoming switch (difficult) {case 0: {minimum = 1; maximum = 50;} case 1: {minimum = 1; maximum = 5000;} case 2: { minimum = 1;  maximum = 50000; } case 3: { minimum = 1;  maximum = 500000;} default: { minimum = 1;  maximum = 50; difficult = 0; break;}} one = minimum + rand() % (maximum - minimum + 1); two = minimum + rand() % (maximum - minimum + 1); three = one + two; answer = 0;
-#define gaining randoming cout << "Р РµС€Рё РїСЂРёРјРµСЂ! " << one << " + " << two << " = ?\n"; cin >> answer; if (three == answer) {money = money + (10*difficult+15); cout << "РџСЂР°РІРёР»СЊРЅРѕ! Р”РµСЂР¶Рё СЃРІРѕРё С‰РµРєРµР»Рё!\n Р—Р°СЂР°Р±РѕС‚Р°РЅРѕ: " << (10*difficult+10) << "$\nРўРµРїРµСЂСЊ РґРµРЅРµРі РІСЃРµРіРѕ: " << money << "$ " << endl;} else {system("cls"); cout << "РўС‹ Р»РѕС…Р°РЅСѓР»СЃСЏ\n РўРІРѕР№ РѕСЃС‚Р°С‚РѕРє: " << money << "$" << endl; move = move + 1;} move = move + 1;
+#define gaining randoming cout << "Реши пример! " << one << " + " << two << " = ?\n"; cin >> answer; if (three == answer) {money = money + (10*difficult+15); cout << "Правильно! Держи свои щекели!\n Заработано: " << (10*difficult+10) << "$\nТеперь денег всего: " << money << "$ " << endl;} else {system("cls"); cout << "Ты лоханулся\n Твой остаток: " << money << "$" << endl; move = move + 1;} move = move + 1;
 }
 void Feeding() {
 	food = 0;
 	extra = 0;
-#define amountfood cout<<"РћСЃС‚Р°Р»РѕСЃСЊ РµРґС‹: "<< food << endl; //РљРѕР»РёС‡РµСЃС‚РІРѕ РµРґС‹
-#define feed if (food > 0) {food = food - 1; health= health + 5; extra++; system("cls"); cout << "Р С‹Р±РєР° РїРѕРєРѕСЂРјР»РµРЅР°.\n";} else {system("cls"); cout << "РЈ С‚РµР±СЏ РµРґС‹ РЅРµС‚, СЃС…РѕРґРё Р·Р°С‚Р°СЂСЊСЃСЏ\n";}
-	//Р­РІРѕР»СЋС†РёСЏ
-#define evo if (extra >= 25) {cout << "Р’Р°С€Р° СЂС‹Р±РєР° СЌРІРѕР»СЋС†РёРѕРЅРёСЂРѕРІР°Р»Р° Рё РїРѕРЅСЏР»Р°, С‡С‚Рѕ РІС‹ РµР№ Р±РѕР»СЊС€Рµ РЅРµ РЅСѓР¶РЅС‹\n"; Sleep(7000); anim1re; return 0;}
+#define amountfood cout<<"Осталось еды: "<< food << endl; //Количество еды
+#define feed if (food > 0) {food = food - 1; health= health + 5; extra++; system("cls"); cout << "Рыбка покормлена.\n";} else {system("cls"); cout << "У тебя еды нет, сходи затарься\n";}
+	//Эволюция
+#define evo if (extra >= 25) {cout << "Ваша рыбка эволюционировала и поняла, что вы ей больше не нужны\n"; Sleep(7000); anim1re; return 0;}
 }
 void Market() {
-#define market cout << "Р­С‚Рѕ РјР°РіР°Р·РёРЅ, Р·РґРµСЃСЊ РІС‹ РјРѕР¶РµС‚Рµ РєСѓРїРёС‚СЊ РµРґСѓ!\n\n"; cout << "1. РњР°Р»Р°СЏ РµРґР°......................20$\n"; cout << "2. РЎСЂРµРґРЅСЏСЏ РµРґР°....................30$\n"; cout << "3. Р‘РѕР»СЊС€Р°СЏ РµРґР°....................50$\n"; cout << "4. РћРіСЂРѕРјРЅР°СЏ РµРґР°...................100$\n"; cout << "42. РќР°Р·Р°Рґ\n";
+#define market cout << "Это магазин, здесь вы можете купить еду!\n\n"; cout << "1. Малая еда......................20$\n"; cout << "2. Средняя еда....................30$\n"; cout << "3. Большая еда....................50$\n"; cout << "4. Огромная еда...................100$\n"; cout << "42. Назад\n";
 }
 
 int main() {
@@ -131,27 +132,49 @@ int main() {
 	system("color 02");
 	setlocale(0, "");
 
-	//Р‘Р°Р·РѕРІС‹Рµ Р·РЅР°С‡РµРЅРёСЏ
+	//Базовые значения
 	health = 60;
 	money = 20;
 	int move = 0;
 	food = 0;
 	extra = 0; //Evolution
 	died = 0;
-	difficult = 1; //СЃР»РѕР¶РЅРѕСЃС‚СЊ
+	difficult = 1; //сложность
 
 	//Delete below?
 	int three = 0;
 
-	load;
 
-	cout << "РРіСЂР° СЃ СЂС‹Р±РєРѕР№. Р’Р°С€Р° Р·Р°РґР°С‡Р°: РЅРµ РґР°С‚СЊ СЂС‹Р±РєРµ СѓРјРµСЂРµС‚СЊ!\n\n";
-	//cout << health << " " << food << " " << money << " " << extra;
+    int gamestart = 0;
+	cout << "Игра с рыбкой. Ваша задача: не дать рыбке умереть!\n\n";
+	cout << "1. Новая игра." << endl << "2. Продолжить игру." << endl;
+	cin >> gamestart;
+    cout << endl << endl;
+	switch(gamestart) {
+        case 1: {
+            cleardata;
+            system("cls");
+            break;
+        }
+        case 2: {
+            load;
+            system("cls");
+            break;
+        }
+        default: {
+            cout << "Я тебя не понял, но игра будет продолжена.\n\n";
+            system("pause");
+            system("cls");
+            break;
+
+        }
+	}
+
 	for (;;) {
-		cout << "1. Р—Р°СЂР°Р±РѕС‚Р°С‚СЊ РґРµРЅРµРі.             " << "Р’ РєР°СЂРјР°РЅРµ:      " << money << "$\n";
-		cout << "2. РџРѕРєРѕСЂРјРёС‚СЊ СЂС‹Р±РєСѓ.              " << "Р’ С…РѕР»РѕРґРёР»СЊРЅРёРєРµ: " << food << "\n";
-		cout << "3. РљСѓРїРёС‚СЊ РµРґСѓ.                   " << "Р—РґРѕСЂРѕРІСЊРµ СЂС‹Р±РєРё: " << health << "%\n";
-		cout << "\n99. Р’С‹С…РѕРґ РёР· РёРіСЂС‹." << "\n";
+		cout << "1. Заработать денег.             " << "В кармане:      " << money << "$\n";
+		cout << "2. Покормить рыбку.              " << "В холодильнике: " << food << "\n";
+		cout << "3. Купить еду.                   " << "Здоровье рыбки: " << health << "%\n";
+		cout << "\n99. Выход из игры." << "\n";
 		int choice;
 		cin >> choice;
 		switch (choice) {
@@ -160,7 +183,7 @@ int main() {
 			cout << difficult << endl << minimum << endl << maximum << endl; // delete this
 			gaining
 				dying
-				cout << "Р—РґРѕСЂРѕРІСЊРµ СЂС‹Р±РєРё: " << health << "%" << endl;
+				cout << "Здоровье рыбки: " << health << "%" << endl;
 			break;
 		}
 		case 2: {
@@ -170,9 +193,9 @@ int main() {
 			break;
 		}
 		case 3: {
-#define notmoney cout<<"РўС‹ Р±РѕРјР¶, СЃС…РѕРґРё Р·Р°СЂР°Р±РѕС‚Р°Р№ РґРµРЅРµРі!\n";
+#define notmoney cout<<"Ты бомж, сходи заработай денег!\n";
 			system("cls");
-			cout << "Р’ РєР°СЂРјР°РЅРµ: " << money << "$" << endl << "Р’ С…РѕР»РѕРґРёР»СЊРЅРёРєРµ : " << food << endl << "Р—РґРѕСЂРѕРІСЊРµ СЂС‹Р±РєРё: " << health << "%\n" << endl;
+			cout << "В кармане: " << money << "$" << endl << "В холодильнике : " << food << endl << "Здоровье рыбки: " << health << "%\n" << endl;
 			market
 				int buy = 0;
 			cin >> buy;
@@ -183,7 +206,7 @@ int main() {
 			case 4: {if (money >= 20) { money = money - 100; food = food + 10; amountfood } else { notmoney } break; }
 			case 42: {break; }
 			default: {
-				cout << "Р’РІРѕРґРё РЅРѕРјРµСЂ РµРґС‹, РµРїС‚Р°\n";
+				cout << "Вводи номер еды, епта\n";
 				return 0;
 				break;
 			}
@@ -193,13 +216,13 @@ int main() {
 		case 42: {
 			health = health - 100;
 			die;
-			cout << "РџРѕРєР° С‚С‹ СЃРјРѕС‚СЂРµР» РЅР° СЂС‹Р±РєСѓ, РѕРЅР° СЃР±РµР¶Р°Р»Р° РѕС‚ С‚РµР±СЏ\n"; Sleep(7000); cout << "РўС‹ Р»РѕС…"; Sleep(1000); cout << "."; Sleep(1000); cout << "."; Sleep(1000); cout << ".\n"; Sleep(5000);
+			cout << "Пока ты смотрел на рыбку, она сбежала от тебя\n"; Sleep(7000); cout << "Ты лох"; Sleep(1000); cout << "."; Sleep(1000); cout << "."; Sleep(1000); cout << ".\n"; Sleep(5000);
 			system("pause");
 
 		}
 		case 99: { save; return 0; }
 		default: {
-			cout << "РљР°Р¶РµС‚СЃСЏ РјС‹ РїРѕС‚РµСЂСЏР»Рё РІР·Р°РёРјРѕРїРѕРЅРёРјР°РЅРёРµ...\n"; Sleep(5000);
+			cout << "Кажется мы потеряли взаимопонимание...\n"; Sleep(5000);
 			return 0;
 			break;
 		}
