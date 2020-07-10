@@ -29,7 +29,6 @@ void data() {
 
 #define save ofstream out("data.txt"); out << health << "\n" << food << "\n" << money << "\n" << extra; out.close();
 #define load ifstream in("data.txt"); in >> health >> food >> money >> extra; in.close();
-#define cleardata ofstream out("data.txt"); out << "60 \n 0 \n 20 \n 0"; out.close();
 
 }
 void animations() {
@@ -152,7 +151,6 @@ int main() {
     cout << endl << endl;
 	switch(gamestart) {
         case 1: {
-            cleardata;
             system("cls");
             break;
         }

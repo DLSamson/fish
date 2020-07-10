@@ -1,7 +1,8 @@
 # depslib dependency file v1.0
-1594366692 source:c:\users\artgu\onedrive\my_documents\github\fish\main.cpp
+1594373143 source:c:\users\artgu\onedrive\my_documents\github\fish\main.cpp
 	<iostream>
 	<windows.h>
 	<string>
 	<fstream>
+	<math.h>
 
