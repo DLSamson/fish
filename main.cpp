@@ -14,7 +14,7 @@ int minimum = 0;
 int maximum = 50;
 int answer = 0;
 
-
+int jopa;
 //Игровые  переменные
 int health;
 int money;
@@ -27,8 +27,9 @@ int difficult;
 
 void data() {
 
-#define save ofstream out("data.txt"); out << health << "\n" << food << "\n" << money << "\n" << extra; out.close();
-#define load ifstream in("data.txt"); in >> health >> food >> money >> extra; in.close();
+#define save ofstream out("data.txt"); out << health << "\n" << food << "\n" << money << "\n" << extra << "\n" << jopa; out.close();
+#define load ifstream in("data.txt"); in >> health >> food >> money >> extra >> jopa; in.close();
+#define loose ofstream out("data.txt"); out << "60 \n 0 \n 20 \n 0 \n 1"; out.close();
 
 }
 void animations() {
@@ -111,10 +112,10 @@ void Feeding() {
 #define amountfood cout<<"Осталось еды: "<< food << endl; //Количество еды
 #define feed if (food > 0) {food = food - 1; health= health + 5; extra++; system("cls"); cout << "Рыбка покормлена.\n";} else {system("cls"); cout << "У тебя еды нет, сходи затарься\n";}
 	//Эволюция
-#define evo if (extra >= 25) {cout << "Ваша рыбка эволюционировала и поняла, что вы ей больше не нужны\n"; Sleep(7000); anim1re; return 0;}
+#define evo if (extra >= 25) {cout << "Ваша рыбка эволюционировала и поняла, что вы ей больше не нужны\n"; Sleep(7000); anim1re; jopa++; loose; return 0;}
 }
 void Market() {
-#define market cout << "Это магазин, здесь вы можете купить еду!\n\n"; cout << "1. Малая еда......................20$\n"; cout << "2. Средняя еда....................30$\n"; cout << "3. Большая еда....................50$\n"; cout << "4. Огромная еда...................100$\n"; cout << "42. Назад\n";
+#define market cout << "Это магазин, здесь вы можете купить еду!\n\n"; cout << "1. Маленькая баночка......................20$\n"; cout << "2. Средняя банка..........................30$\n"; cout << "3. Большая банка..........................50$\n"; cout << "4. Огромная банка........................100$\n"; cout << "42. Назад\n";
 }
 
 int main() {
@@ -143,6 +144,9 @@ int main() {
 	//Delete below?
 	int three = 0;
 
+    load;
+
+    if(jopa == 1)
 
     int gamestart = 0;
 	cout << "Игра с рыбкой. Ваша задача: не дать рыбке умереть!\n\n";
@@ -215,12 +219,16 @@ int main() {
 			health = health - 100;
 			die;
 			cout << "Пока ты смотрел на рыбку, она сбежала от тебя\n"; Sleep(7000); cout << "Ты лох"; Sleep(1000); cout << "."; Sleep(1000); cout << "."; Sleep(1000); cout << ".\n"; Sleep(5000);
+			jopa++;
+            loose;
 			system("pause");
 
 		}
 		case 99: { save; return 0; }
 		default: {
 			cout << "Кажется мы потеряли взаимопонимание...\n"; Sleep(5000);
+			jopa++;
+			loose;
 			return 0;
 			break;
 		}
